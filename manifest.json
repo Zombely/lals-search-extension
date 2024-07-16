@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "LALS Search",
+    "description": "Extension for searching players in LALS volleyball league",
+    "version": "1.0",
+    "author": "michalkozlowski936@gmail.com",
+    "action": {
+        "default_popup": "templates/dashboard.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*.facebook.com/*"],
+            "js": ["js/fbContent.js"],
+            "css": ["styles/fbExtension.css"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["images/*", "templates/*"],
+            "matches": ["*://*.facebook.com/*"]
+        }
+    ]
+}
