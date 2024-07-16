@@ -1,0 +1,49 @@
+.lals-info-container {
+    background-color: #242526;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    position: absolute;
+    border: 1px solid #3a3b3c;
+}
+
+.fb-lals-inner-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+.fb-lals-logo-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.fb-lals-logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.fb-lals-data-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.fb-lals-no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fb-lals-no-data > div {
+    color: white;
+    font-size: 14px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 600;
+}
+
+.fb-lals-data-container > div {
+  color: white;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+}
