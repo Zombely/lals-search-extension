@@ -3,7 +3,7 @@ const INFO_GROUP_IDS = [589759677744412, 1453034095575643]; // ids of groups tha
 
 const poistionTransMap = {
     middle_blocker: "Środkowy",
-    outside_hitter: "Atakujący",
+    outside_hitter: "Przyjmujący",
     opposite_hitter: "Atakujący",
     setter: "Rozgrywający",
     libero: "Libero",

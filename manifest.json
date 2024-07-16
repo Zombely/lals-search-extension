@@ -1,9 +1,17 @@
 {
     "manifest_version": 3,
     "name": "LALS Search",
+    "short_name": "LALS Search",
     "description": "Extension for searching players in LALS volleyball league",
     "version": "1.0",
     "author": "michalkozlowski936@gmail.com",
+    "homepage_url": "https://github.com/Zombely/lals-search-extension",
+    "icons": {
+        "16": "images/icon16.png",
+        "32": "images/icon32.png",
+        "64": "images/icon64.png",
+        "128": "images/icon128.png"
+    },
     "action": {
         "default_popup": "templates/dashboard.html"
     },
