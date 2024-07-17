@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>LALS Search</title>
+        <link rel="stylesheet" href="../styles/search.css" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div class="main-search-container">
+            <div class="title-wrapper-container">
+                <a
+                    class="lals-logo-container"
+                    href="https://www.facebook.com/LubonskaAmatorskaLigaSiatkowki"
+                    target="_blank"
+                >
+                    <img
+                        id="lals-logo-dashboard-id"
+                        src="https://scontent.fpoz5-1.fna.fbcdn.net/v/t39.30808-6/292349895_454220650039068_7792229182782599018_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=FB7Nw7VtfF0Q7kNvgHxnX3z&_nc_ht=scontent.fpoz5-1.fna&oh=00_AYB5G-i3SXZe6WM_oo2_qEdFCox-1fm_rOgEalc2s68PdQ&oe=669C2534"
+                    />
+                </a>
+                <div class="dashboard-title">
+                    Lubońska Amatorska Liga Siatkówki
+                </div>
+            </div>
+            <div class="input-container">
+                <input
+                    placeholder="Wyszukaj zawodnika lub drużynę"
+                    id="lals-search-input"
+                />
+                <button id="lals-search-reset-button">Wyczyść</button>
+            </div>
+            <div
+                id="player-results-container"
+                class="lals-results-container"
+            ></div>
+            <div class="lals-paging">
+                <button
+                    id="lals-previous-page"
+                    class="lals-paging-button"
+                    disabled
+                >
+                    <span class="material-icons">chevron_left</span>
+                </button>
+                <button id="lals-next-page" class="lals-paging-button">
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            </div>
+        </div>
+        <script src="../js/global.js" type="module"></script>
+        <script src="../js/search.js"></script>
+    </body>
+</html>

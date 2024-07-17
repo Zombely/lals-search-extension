@@ -13,7 +13,7 @@
         "128": "images/icon128.png"
     },
     "action": {
-        "default_popup": "templates/dashboard.html"
+        "default_popup": "templates/search.html"
     },
     "content_scripts": [
         {

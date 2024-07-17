@@ -1,12 +1,3 @@
-// const poistionTransMap = {
-//     middle_blocker: "Środkowy",
-//     outside_hitter: "Przyjmujący",
-//     opposite_hitter: "Atakujący",
-//     setter: "Rozgrywający",
-//     libero: "Libero",
-//     coach: "Trener",
-// };
-
 function createLalsInfoElement(node, lalsPlayerData) {
     element = document.createElement("div");
     element.className = "lals-info-container";
