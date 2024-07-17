@@ -18,8 +18,8 @@
     "content_scripts": [
         {
             "matches": ["*://*.facebook.com/*"],
-            "js": ["js/global.js", "js/fbContent.js"],
-            "css": ["styles/fbExtension.css"]
+            "js": ["js/global.js", "js/fb-content.js"],
+            "css": ["styles/fb-extension.css"]
         }
     ],
     "web_accessible_resources": [
@@ -27,5 +27,8 @@
             "resources": ["images/*", "styles/*", "js/*"],
             "matches": ["<all_urls>"]
         }
-    ]
+    ],
+    "background": {
+        "service_worker": "js/lals-service-worker.js"
+    }
 }
