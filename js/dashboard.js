@@ -12,11 +12,11 @@ function initInput() {
     });
 }
 
-function getApiPLayers(playerName, page = 1) {
+function getApiPLayers(inputData, page = 1) {
     const baseUrl = `${LALS_EXTENSION_ENV_CONSTANTS.API_BASE_URL}/players`;
     const params = new URLSearchParams({ page: page.toString() });
 
-    if (playerName) params.append("full_name", playerName);
+    if (inputData) params.append("search", inputData);
 
     const url = `${baseUrl}?${params.toString()}`;
 
