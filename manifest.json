@@ -18,14 +18,14 @@
     "content_scripts": [
         {
             "matches": ["*://*.facebook.com/*"],
-            "js": ["js/fbContent.js"],
+            "js": ["js/global.js", "js/fbContent.js"],
             "css": ["styles/fbExtension.css"]
         }
     ],
     "web_accessible_resources": [
         {
-            "resources": ["images/*", "templates/*"],
-            "matches": ["*://*.facebook.com/*"]
+            "resources": ["images/*", "styles/*", "js/*"],
+            "matches": ["<all_urls>"]
         }
     ]
 }

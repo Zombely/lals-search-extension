@@ -1,52 +1,53 @@
-const API_URL = "https://zbserver.tail7f9ce.ts.net/lals";
-const INFO_GROUP_IDS = [589759677744412, 1453034095575643]; // ids of groups that should display info about LALS even if not found, else only shows info if found player
+// const poistionTransMap = {
+//     middle_blocker: "Środkowy",
+//     outside_hitter: "Przyjmujący",
+//     opposite_hitter: "Atakujący",
+//     setter: "Rozgrywający",
+//     libero: "Libero",
+//     coach: "Trener",
+// };
 
-const poistionTransMap = {
-    middle_blocker: "Środkowy",
-    outside_hitter: "Przyjmujący",
-    opposite_hitter: "Atakujący",
-    setter: "Rozgrywający",
-    libero: "Libero",
-    coach: "Trener",
-};
-
-function createLalsInfoElement(node, lalsData) {
+function createLalsInfoElement(node, lalsPlayerData) {
     element = document.createElement("div");
     element.className = "lals-info-container";
-    if (lalsData !== null) {
+    if (lalsPlayerData !== null) {
         element.innerHTML = `
             <div class="fb-lals-inner-wrapper">
                 <a class="fb-lals-logo-wrapper" href="https://www.facebook.com/LubonskaAmatorskaLigaSiatkowki">
-                    <img class="fb-lals-logo" src="${chrome.runtime.getURL(
-                        "images/lals-logo.jpg"
-                    )}">
+                    <img class="fb-lals-logo" src="${
+                        LALS_EXTENSION_ENV_CONSTANTS.LALS_LOGO_URL
+                    }">
                 </a>
                 <div class="fb-lals-data-container">
-                    <div>
-                        Drużyna: <strong>${lalsData.team_name}</strong>
+                    <div class="fb-lals-team-data">
+                        <span>Drużyna:</span> <img class="fb-lals-team-logo" src="${
+                            lalsPlayerData.team.logo
+                        }"><strong>${lalsPlayerData.team.name}</strong>
                     </div>
                     <div>
-                        Liga: <strong>${lalsData.league.name}</strong>
+                        Liga: <strong>${
+                            lalsPlayerData.team.league.name
+                        }</strong>
                     </div>
                     <div>
                         Pozycja: <strong>${
-                            poistionTransMap[lalsData.position]
+                            LALS_EXTENSION_ENV_CONSTANTS.POSITION_TRANS_MAP[
+                                lalsPlayerData.position
+                            ]
                         }</strong>
                     </div>
                 </div>
             </div>
         `;
     } else if (
-        INFO_GROUP_IDS.some((id) =>
+        LALS_EXTENSION_ENV_CONSTANTS.INFO_GROUP_IDS.some((id) =>
             window.location.href.includes(id.toString())
         )
     ) {
         element.innerHTML = `
             <div class="fb-lals-inner-wrapper">
                 <a class="fb-lals-logo-wrapper" href="https://www.facebook.com/LubonskaAmatorskaLigaSiatkowki">
-                    <img class="fb-lals-logo" src="${chrome.runtime.getURL(
-                        "images/lals-logo.jpg"
-                    )}">
+                    <img class="fb-lals-logo" src="${LALS_EXTENSION_ENV_CONSTANTS.LALS_LOGO_URL}">
                 </a>
                 <div class="fb-lals-data-container fb-lals-no-data">
                     <div>
@@ -63,7 +64,9 @@ function createLalsInfoElement(node, lalsData) {
 
 async function fetchPlayerData(playerName) {
     try {
-        const response = await fetch(`${API_URL}/${playerName}`);
+        const response = await fetch(
+            `${LALS_EXTENSION_ENV_CONSTANTS.API_BASE_URL}/player/${playerName}`
+        );
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
@@ -73,23 +76,26 @@ async function fetchPlayerData(playerName) {
     }
 }
 
+function listenForProfileHover(node) {
+    // react only to hover on facebook user profile
+    if (
+        node.matches('div[role="dialog"]') ||
+        node.querySelector('div[role="dialog"]')
+    ) {
+        const nameNode = node.querySelector("h3, h2"); // need to find better way of finding name of user
+        if (!nameNode) return;
+        fetchPlayerData(nameNode.innerText).then((data) => {
+            createLalsInfoElement(node, data);
+        });
+    }
+}
+
 const observer = new MutationObserver((mutationsList, observer) => {
     for (const mutation of mutationsList) {
         if (mutation.type !== "childList") return;
         mutation.addedNodes.forEach((node) => {
             if (node.nodeType !== 1) return;
-
-            // react only to hover on facebook user profile
-            if (
-                node.matches('div[role="dialog"]') ||
-                node.querySelector('div[role="dialog"]')
-            ) {
-                const nameNode = node.querySelector("h3, h2"); // need to find better way of finding name of user
-                if (!nameNode) return;
-                fetchPlayerData(nameNode.innerText).then((data) => {
-                    createLalsInfoElement(node, data);
-                });
-            }
+            listenForProfileHover(node);
         });
     }
 });
