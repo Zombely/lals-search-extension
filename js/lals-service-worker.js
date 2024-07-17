@@ -6,11 +6,7 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", async (event) => {
-    if (
-        event.request.destination === "image" ||
-        event.request.url.includes(API_BASE_URL)
-    ) {
-        // Open the cache
+    if (event.request.url.includes(API_BASE_URL)) {
         event.respondWith(
             caches.open(CACHE_NAME).then((cache) => {
                 // Respond with the cached response or fetch from the network
@@ -28,8 +24,5 @@ self.addEventListener("fetch", async (event) => {
                 });
             })
         );
-    } else {
-        // For other requests not handled by the service worker, just fetch them normally
-        event.respondWith(fetch(event.request));
     }
 });
