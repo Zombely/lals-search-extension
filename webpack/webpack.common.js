@@ -3,32 +3,33 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: {
-        popup: "./scripts/popup.ts", // Entry file for the popup
-        background: "./scripts/lals-service-worker.ts", // Entry file for the background
-        content_script: "./scripts/fb-content.ts", // Entry file for the content script
+        popup: "./scripts/popup.ts",
+        background: "./scripts/lals-service-worker.ts",
+        content_script: "./scripts/fb-content.ts",
     },
     module: {
         rules: [
             {
-                test: /\.ts?$/, // Match both .ts and .tsx files
-                use: "ts-loader", // Use ts-loader to transpile TypeScript to JavaScript
-                exclude: /node_modules/, // Exclude the node_modules directory
+                test: /\.ts?$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
             },
         ],
     },
     resolve: {
-        extensions: [".ts", ".js"], // Resolve these extensions
+        extensions: [".ts", ".js"],
     },
     output: {
-        filename: "[name].js", // Output bundle file name
-        path: path.resolve(__dirname, "../dist"), // Output directory
+        filename: "[name].js",
+        path: path.resolve(__dirname, "../dist"),
     },
     plugins: [
         new CopyPlugin({
             patterns: [
-                { from: ".", to: "../dist", context: "styles" },
-                { from: ".", to: "../dist", context: "templates" },
-                { from: ".", to: "../dist", context: "images" },
+                {
+                    from: "{styles,templates,images}/*",
+                    to: "../dist/[name][ext]",
+                },
                 { from: "manifest.json", to: "../dist" },
             ], // Copy everything from the styles, templates, and images directories to the dist directory
             options: {},
