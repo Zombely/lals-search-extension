@@ -1,4 +1,6 @@
-const LALS_EXTENSION_ENV_CONSTANTS = {
+import { ILalsEnvs } from "./interfaces";
+
+export const LALS_EXTENSION_ENV_CONSTANTS: ILalsEnvs = {
     API_BASE_URL: "https://zbserver.tail7f9ce.ts.net/lals",
     INFO_GROUP_IDS: [589759677744412, 1453034095575643],
     LALS_LOGO_URL:
@@ -11,10 +13,5 @@ const LALS_EXTENSION_ENV_CONSTANTS = {
         libero: "Libero",
         coach: "Trener",
     },
+    CACHE_NAME: "LALS_EXTENSION_CACHE",
 };
-
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-    module.exports = LALS_EXTENSION_ENV_CONSTANTS;
-} else {
-    window.LALS_EXTENSION_ENV_CONSTANTS = LALS_EXTENSION_ENV_CONSTANTS;
-}

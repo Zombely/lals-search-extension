@@ -7,28 +7,28 @@
     "author": "michalkozlowski936@gmail.com",
     "homepage_url": "https://github.com/Zombely/lals-search-extension",
     "icons": {
-        "16": "images/icon16.png",
-        "32": "images/icon32.png",
-        "64": "images/icon64.png",
-        "128": "images/icon128.png"
+        "16": "icon16.png",
+        "32": "icon32.png",
+        "64": "icon64.png",
+        "128": "icon128.png"
     },
     "action": {
-        "default_popup": "templates/search.html"
+        "default_popup": "popup.html"
     },
     "content_scripts": [
         {
             "matches": ["*://*.facebook.com/*"],
-            "js": ["js/global.js", "js/fb-content.js"],
-            "css": ["styles/fb-extension.css"]
+            "js": ["content_script.js"],
+            "css": ["fb-extension.css"]
         }
     ],
     "web_accessible_resources": [
         {
-            "resources": ["images/*", "styles/*", "js/*"],
+            "resources": ["./*"],
             "matches": ["<all_urls>"]
         }
     ],
     "background": {
-        "service_worker": "js/lals-service-worker.js"
+        "service_worker": "background.js"
     }
 }
