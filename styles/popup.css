@@ -3,15 +3,16 @@ body{
     background-color: #242526;
     width: max-content;
     max-width: 400px;
-    height: fit-content;
+    height: 100%;
 }
 
 .main-search-container{
-    padding: 16px;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
 }
 .title-wrapper-container{
+    padding-top: 12px;
     display: flex;
     flex-direction: row;
     gap: 8px;
@@ -39,7 +40,28 @@ body{
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 24px 0;
+    margin: 24px 0;
+    max-height: 400px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.lals-results-container::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the scrollbar */
+}
+
+.lals-results-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the track */
+    border-radius: 4px;
+}
+
+.lals-results-container::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners on the thumb */
+}
+
+.lals-results-container::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the thumb on hover */
 }
 
 .lals-user-container{
@@ -48,7 +70,8 @@ body{
     gap: 12px;
     background-color: white;
     border: black;
-    width: 350px;
+    min-width: 320px;
+    margin-right: auto;
     border-radius: 4px;
 }
 
@@ -98,6 +121,7 @@ body{
     flex-direction: row;
     justify-content: center;
     gap: 12px;
+    padding-bottom: 12px;
 }
 
 .input-container{
