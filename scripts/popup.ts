@@ -89,6 +89,8 @@ function createPlayerElement(player: IPlayer): HTMLDivElement {
     userImgElement.addEventListener("error", () => {
         userImgElement.src =
             "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg";
+        userImgElement.alt = "Default avatar";
+        userImgElement.style.objectFit = "contain";
     });
     return playerElement;
 }

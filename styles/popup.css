@@ -2,7 +2,7 @@ body{
     margin: 0;
     background-color: #242526;
     width: max-content;
-    max-width: 400px;
+    width: 380px;
     height: 100%;
 }
 
@@ -70,14 +70,14 @@ body{
     gap: 12px;
     background-color: white;
     border: black;
-    min-width: 320px;
+    width: 330px;
     margin-right: auto;
     border-radius: 4px;
 }
 
 .lals-team-logo{
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     border-radius: 20%;
 }
 
