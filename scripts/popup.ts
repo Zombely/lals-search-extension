@@ -42,6 +42,22 @@ function getApiPlayers(
         })
         .then((playersData: IPlayer[]) => {
             currentPage = page;
+
+            // handle pagination buttons
+            const prevPageButton: HTMLButtonElement | null =
+                document.getElementById(
+                    "lals-previous-page"
+                ) as HTMLButtonElement | null;
+            if (prevPageButton) prevPageButton.disabled = page === 1;
+
+            const nextPageButton: HTMLButtonElement | null =
+                document.getElementById(
+                    "lals-next-page"
+                ) as HTMLButtonElement | null;
+            if (nextPageButton)
+                nextPageButton.disabled =
+                    playersData.length === 0 || playersData.length < 5;
+
             populatePlayers(playersData);
         })
         .catch((error) => {
@@ -122,11 +138,6 @@ function handleNextPage(): void {
         if (!lalsSearchInput)
             throw new Error(`Input lals-search-input not found`);
         getApiPlayers(lalsSearchInput.value ?? "", currentPage + 1);
-        const prevPageButton: HTMLButtonElement | null =
-            document.getElementById(
-                "lals-previous-page"
-            ) as HTMLButtonElement | null;
-        if (prevPageButton) prevPageButton.disabled = false;
     });
 }
 
@@ -145,7 +156,6 @@ function handlePrevPage(): void {
             throw new Error(`Input lals-search-input not found`);
 
         getApiPlayers(lalsSearchInput.value, currentPage - 1);
-        if (currentPage === 2) prevButton.disabled = true;
     });
 }
 
