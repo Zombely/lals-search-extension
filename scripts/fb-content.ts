@@ -1,12 +1,23 @@
 import { LALS_EXTENSION_ENV_CONSTANTS } from "./enviroment";
 import { IPlayer } from "./interfaces";
 
+function isFacebookDarkMode(): boolean {
+    // somehow this works
+    const backgroundColor = window.getComputedStyle(
+        document.body
+    ).backgroundColor;
+    const darkModeActive =
+        backgroundColor === "rgb(24, 25, 26)" || backgroundColor === "#18191a";
+    return darkModeActive;
+}
+
 function createLalsInfoElement(
     fbProfileNode: HTMLElement,
     lalsPlayerData: IPlayer | null
 ): void {
-    let infoDivElement: HTMLDivElement = document.createElement("div");
-    infoDivElement.className = "lals-info-container";
+    const infoDivElement: HTMLDivElement = document.createElement("div");
+    infoDivElement.className =
+        "lals-info-container" + (isFacebookDarkMode() ? " dark-mode" : "");
     if (lalsPlayerData !== null) {
         infoDivElement.innerHTML = `
             <div class="fb-lals-inner-wrapper">

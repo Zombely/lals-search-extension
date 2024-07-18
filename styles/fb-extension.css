@@ -1,11 +1,19 @@
 .lals-info-container {
-    background-color: #242526;
+    background-color: white;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
     position: absolute;
-    border: 1px solid #3a3b3c;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: black
 }
+
+.lals-info-container.dark-mode{
+    background-color: #242526;
+    border: 1px solid #3a3b3c;
+    color: white;
+}
+
 
 .fb-lals-inner-wrapper{
     display: flex;
@@ -36,14 +44,12 @@
     align-items: center;
 }
 .fb-lals-no-data > div {
-    color: white;
     font-size: 14px;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 600;
 }
 
 .fb-lals-data-container > div {
-  color: white;
   font-size: 14px;
   font-family: Helvetica, Arial, sans-serif;
 }
