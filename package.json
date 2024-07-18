@@ -1,0 +1,25 @@
+{
+    "name": "lals-search-extension",
+    "version": "1.0.0",
+    "description": "Extension for searching players in LALS volleyball league",
+    "main": "index.js",
+    "scripts": {
+        "watch": "webpack --config webpack/webpack.dev.js --watch",
+        "build": "webpack --config webpack/webpack.prod.js"
+    },
+    "author": "michalkozlowski936@gmail.com",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Zombely/lals-search-extension"
+    },
+    "devDependencies": {
+        "compression-webpack-plugin": "^11.1.0",
+        "copy-webpack-plugin": "^12.0.2",
+        "terser-webpack-plugin": "^5.3.10",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.5.3",
+        "webpack": "^5.93.0",
+        "webpack-cli": "^5.1.4"
+    }
+}

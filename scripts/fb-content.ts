@@ -1,8 +1,14 @@
-function createLalsInfoElement(node, lalsPlayerData) {
-    element = document.createElement("div");
-    element.className = "lals-info-container";
+import { LALS_EXTENSION_ENV_CONSTANTS } from "./enviroment";
+import { IPlayer } from "./interfaces";
+
+function createLalsInfoElement(
+    fbProfileNode: HTMLElement,
+    lalsPlayerData: IPlayer | null
+): void {
+    let infoDivElement: HTMLDivElement = document.createElement("div");
+    infoDivElement.className = "lals-info-container";
     if (lalsPlayerData !== null) {
-        element.innerHTML = `
+        infoDivElement.innerHTML = `
             <div class="fb-lals-inner-wrapper">
                 <a class="fb-lals-logo-wrapper" href="https://www.facebook.com/LubonskaAmatorskaLigaSiatkowki">
                     <img class="fb-lals-logo" src="${
@@ -31,11 +37,11 @@ function createLalsInfoElement(node, lalsPlayerData) {
             </div>
         `;
     } else if (
-        LALS_EXTENSION_ENV_CONSTANTS.INFO_GROUP_IDS.some((id) =>
+        LALS_EXTENSION_ENV_CONSTANTS.INFO_GROUP_IDS.some((id: number) =>
             window.location.href.includes(id.toString())
         )
     ) {
-        element.innerHTML = `
+        infoDivElement.innerHTML = `
             <div class="fb-lals-inner-wrapper">
                 <a class="fb-lals-logo-wrapper" href="https://www.facebook.com/LubonskaAmatorskaLigaSiatkowki">
                     <img class="fb-lals-logo" src="${LALS_EXTENSION_ENV_CONSTANTS.LALS_LOGO_URL}">
@@ -50,10 +56,10 @@ function createLalsInfoElement(node, lalsPlayerData) {
     } else {
         return;
     }
-    node.appendChild(element);
+    fbProfileNode.appendChild(infoDivElement);
 }
 
-async function fetchPlayerData(playerName) {
+async function fetchPlayerData(playerName: string): Promise<IPlayer | null> {
     try {
         const response = await fetch(
             `${LALS_EXTENSION_ENV_CONSTANTS.API_BASE_URL}/player/${playerName}`
@@ -62,31 +68,32 @@ async function fetchPlayerData(playerName) {
             throw new Error("Network response was not ok");
         }
         return await response.json();
-    } catch (error) {
+    } catch (error: Error | unknown) {
         console.error("Fetch error:", error);
+        return null;
     }
 }
 
-function listenForProfileHover(node) {
+function listenForProfileHover(node: HTMLElement): void {
     // react only to hover on facebook user profile
     if (
         node.matches('div[role="dialog"]') ||
         node.querySelector('div[role="dialog"]')
     ) {
-        const nameNode = node.querySelector("h3, h2"); // need to find better way of finding name of user
+        const nameNode: HTMLElement | null = node.querySelector("h3, h2"); // need to find better way of finding name of user
         if (!nameNode) return;
-        fetchPlayerData(nameNode.innerText).then((data) => {
+        fetchPlayerData(nameNode.innerText).then((data: IPlayer | null) => {
             createLalsInfoElement(node, data);
         });
     }
 }
 
-const observer = new MutationObserver((mutationsList, observer) => {
+const observer = new MutationObserver((mutationsList: MutationRecord[]) => {
     for (const mutation of mutationsList) {
         if (mutation.type !== "childList") return;
-        mutation.addedNodes.forEach((node) => {
+        mutation.addedNodes.forEach((node: Node) => {
             if (node.nodeType !== 1) return;
-            listenForProfileHover(node);
+            listenForProfileHover(node as HTMLElement);
         });
     }
 });
