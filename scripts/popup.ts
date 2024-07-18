@@ -11,16 +11,16 @@ function initInput(): void {
         if (event.target === null) return;
         const inputElement = event.target as HTMLInputElement;
         if (inputElement.value.length < 3) return;
-        getApiPLayers(inputElement.value);
+        getApiPlayers(inputElement.value);
     });
     searchInput.addEventListener("keydown", (event: KeyboardEvent) => {
         if (event.key !== "Enter" || event.target === null) return;
         const inputElement = event.target as HTMLInputElement;
-        getApiPLayers(inputElement.value);
+        getApiPlayers(inputElement.value);
     });
 }
 
-function getApiPLayers(
+function getApiPlayers(
     inputData: string | null = null,
     page: number = 1
 ): void {
@@ -119,7 +119,7 @@ function handleNextPage(): void {
             ) as HTMLInputElement | null;
         if (!lalsSearchInput)
             throw new Error(`Input lals-search-input not found`);
-        getApiPLayers(lalsSearchInput.value ?? "", currentPage + 1);
+        getApiPlayers(lalsSearchInput.value ?? "", currentPage + 1);
         const prevPageButton: HTMLButtonElement | null =
             document.getElementById(
                 "lals-previous-page"
@@ -142,7 +142,7 @@ function handlePrevPage(): void {
         if (!lalsSearchInput)
             throw new Error(`Input lals-search-input not found`);
 
-        getApiPLayers(lalsSearchInput.value, currentPage - 1);
+        getApiPlayers(lalsSearchInput.value, currentPage - 1);
         if (currentPage === 2) prevButton.disabled = true;
     });
 }
@@ -159,7 +159,7 @@ function handleResetSearch(): void {
         ) as HTMLInputElement | null;
         if (!input) throw new Error(`Input lals-search-input not found`);
         input.value = "";
-        getApiPLayers();
+        getApiPlayers();
     });
 }
 
@@ -171,5 +171,5 @@ function handleResetSearch(): void {
 })();
 
 document.addEventListener("DOMContentLoaded", function () {
-    getApiPLayers();
+    getApiPlayers();
 });
