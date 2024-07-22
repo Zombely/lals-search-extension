@@ -2,8 +2,8 @@
     "manifest_version": 3,
     "name": "LALS Search",
     "short_name": "LALS Search",
-    "description": "Extension for searching players in LALS volleyball league",
-    "version": "1.0",
+    "description": "Extension for searching players in LALS volleyball league in panel or as facebook popup",
+    "version": "1.0.0",
     "author": "michalkozlowski936@gmail.com",
     "homepage_url": "https://github.com/Zombely/lals-search-extension",
     "icons": {
@@ -17,6 +17,7 @@
     },
     "content_scripts": [
         {
+            "full_url_matches": ["https://www.facebook.com/"],
             "matches": ["*://*.facebook.com/*"],
             "js": ["content_script.js"],
             "css": ["fb-extension.css"]
@@ -30,5 +31,6 @@
     ],
     "background": {
         "service_worker": "background.js"
-    }
+    },
+    "permissions": ["storage", "nativeMessaging", "tabs"]
 }

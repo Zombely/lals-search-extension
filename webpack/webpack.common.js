@@ -6,6 +6,7 @@ module.exports = {
         popup: "./scripts/popup.ts",
         background: "./scripts/lals-service-worker.ts",
         content_script: "./scripts/fb-content.ts",
+        setting: "./scripts/setting.ts",
     },
     module: {
         rules: [

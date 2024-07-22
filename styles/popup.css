@@ -1,12 +1,24 @@
+html{
+    height: fit-content;
+}
+
 body{
     margin: 0;
     background-color: #242526;
     width: max-content;
     width: 380px;
-    height: 100%;
+    height: fit-content;
 }
 
+.hidden {
+    display: none !important;
+}
+
+/* SEARCH */
+
+
 .main-search-container{
+    position: relative;
     padding: 0 16px;
     display: flex;
     flex-direction: column;
@@ -33,6 +45,7 @@ body{
     font-weight: 600;
     display: flex;
     align-items: center;
+    margin: 0;
 }
 
 
@@ -46,23 +59,26 @@ body{
     overflow-y: auto;
 }
 
-.lals-results-container::-webkit-scrollbar {
+/* SCROLLBAR */
+::-webkit-scrollbar {
     width: 8px; /* Adjust the width of the scrollbar */
 }
 
-.lals-results-container::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1; /* Color of the track */
     border-radius: 4px;
 }
 
-.lals-results-container::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #888; /* Color of the scrollbar thumb */
     border-radius: 4px; /* Rounded corners on the thumb */
 }
 
-.lals-results-container::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #555; /* Color of the thumb on hover */
 }
+/* SCROLLBAR END */
+
 
 .lals-user-container{
     display: flex;
@@ -155,3 +171,27 @@ body{
     padding: 0 8px;
     cursor: pointer;
 }
+
+.settings-icon{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    right: 8px;
+    bottom: 16px;
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 1s;
+}
+.settings-icon > span {
+    color: gray;
+}
+
+.settings-icon>span:hover {
+    color: white;
+    transform: rotate(180deg); /* Adjusted rotation */
+    transition: transform 0.5s ease; /* Smooth transition */
+}
+

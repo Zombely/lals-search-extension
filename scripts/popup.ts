@@ -1,24 +1,8 @@
 import { LALS_EXTENSION_ENV_CONSTANTS } from "./enviroment";
-import { IPlayer } from "./interfaces";
+import { IPlayer } from "./interface";
+import { _getElementOfTypeById, _handleSettingsToggle } from "./shared";
 
 let currentPage: number = 1;
-
-function initInput(): void {
-    const searchInput: HTMLElement | null =
-        document.getElementById("lals-search-input");
-    if (!searchInput) throw new Error(`Input lals-search-input not found`);
-    searchInput.addEventListener("input", (event: Event) => {
-        if (event.target === null) return;
-        const inputElement = event.target as HTMLInputElement;
-        if (inputElement.value.length < 3) return;
-        getApiPlayers(inputElement.value);
-    });
-    searchInput.addEventListener("keydown", (event: KeyboardEvent) => {
-        if (event.key !== "Enter" || event.target === null) return;
-        const inputElement = event.target as HTMLInputElement;
-        getApiPlayers(inputElement.value);
-    });
-}
 
 function getApiPlayers(
     inputData: string | null = null,
@@ -44,19 +28,15 @@ function getApiPlayers(
             currentPage = page;
 
             // handle pagination buttons
-            const prevPageButton: HTMLButtonElement | null =
-                document.getElementById(
-                    "lals-previous-page"
-                ) as HTMLButtonElement | null;
-            if (prevPageButton) prevPageButton.disabled = page === 1;
+            const prevPageButton: HTMLButtonElement =
+                _getElementOfTypeById<HTMLButtonElement>("lals-previous-page");
+            prevPageButton.disabled = page === 1;
 
-            const nextPageButton: HTMLButtonElement | null =
-                document.getElementById(
-                    "lals-next-page"
-                ) as HTMLButtonElement | null;
-            if (nextPageButton)
-                nextPageButton.disabled =
-                    playersData.length === 0 || playersData.length < 5;
+            const nextPageButton: HTMLButtonElement =
+                _getElementOfTypeById<HTMLButtonElement>("lals-next-page");
+
+            nextPageButton.disabled =
+                playersData.length === 0 || playersData.length < 5;
 
             populatePlayers(playersData);
         })
@@ -112,11 +92,9 @@ function createPlayerElement(player: IPlayer): HTMLDivElement {
 }
 
 function populatePlayers(playersData: IPlayer[]): void {
-    const container: HTMLElement | null = document.getElementById(
+    const container: HTMLDivElement = _getElementOfTypeById<HTMLDivElement>(
         "player-results-container"
     );
-    if (!container) throw new Error(`Container lals-users-container not found`);
-
     container.innerHTML = "";
     playersData.forEach((player: IPlayer) => {
         const createdPlayerElement: HTMLDivElement =
@@ -125,61 +103,63 @@ function populatePlayers(playersData: IPlayer[]): void {
     });
 }
 
+function handleSearchInput(): void {
+    const searchInput: HTMLInputElement =
+        _getElementOfTypeById<HTMLInputElement>("lals-search-input");
+    searchInput.addEventListener("input", (event: Event) => {
+        if (event.target === null) return;
+        const inputElement = event.target as HTMLInputElement;
+        if (inputElement.value.length < 3) return;
+        getApiPlayers(inputElement.value);
+    });
+    searchInput.addEventListener("keydown", (event: KeyboardEvent) => {
+        if (event.key !== "Enter" || event.target === null) return;
+        const inputElement = event.target as HTMLInputElement;
+        getApiPlayers(inputElement.value);
+    });
+}
+
 function handleNextPage(): void {
-    const nextButton: HTMLButtonElement | null = document.getElementById(
-        "lals-next-page"
-    ) as HTMLButtonElement | null;
-    if (!nextButton) throw new Error(`Button lals-next-page not found`);
+    const nextButton: HTMLButtonElement =
+        _getElementOfTypeById<HTMLButtonElement>("lals-next-page");
     nextButton.addEventListener("click", function () {
-        const lalsSearchInput: HTMLInputElement | null =
-            document.getElementById(
-                "lals-search-input"
-            ) as HTMLInputElement | null;
-        if (!lalsSearchInput)
-            throw new Error(`Input lals-search-input not found`);
+        const lalsSearchInput: HTMLInputElement =
+            _getElementOfTypeById<HTMLInputElement>("lals-search-input");
         getApiPlayers(lalsSearchInput.value ?? "", currentPage + 1);
     });
 }
 
 function handlePrevPage(): void {
-    const prevButton: HTMLButtonElement | null = document.getElementById(
-        "lals-previous-page"
-    ) as HTMLButtonElement | null;
-    if (!prevButton) throw new Error(`Button lals-previous-page not found`);
+    const prevButton: HTMLButtonElement =
+        _getElementOfTypeById<HTMLButtonElement>("lals-previous-page");
     prevButton.addEventListener("click", function () {
         if (currentPage <= 1) return;
-        const lalsSearchInput: HTMLInputElement | null =
-            document.getElementById(
-                "lals-search-input"
-            ) as HTMLInputElement | null;
-        if (!lalsSearchInput)
-            throw new Error(`Input lals-search-input not found`);
+        const lalsSearchInput: HTMLInputElement =
+            _getElementOfTypeById<HTMLInputElement>("lals-search-input");
 
         getApiPlayers(lalsSearchInput.value, currentPage - 1);
     });
 }
 
 function handleResetSearch(): void {
-    const resetButton: HTMLButtonElement | null = document.getElementById(
-        "lals-search-reset-button"
-    ) as HTMLButtonElement | null;
-    if (!resetButton)
-        throw new Error(`Button lals-search-reset-button not found`);
+    const resetButton: HTMLButtonElement =
+        _getElementOfTypeById<HTMLButtonElement>("lals-search-reset-button");
     resetButton.addEventListener("click", () => {
-        const input: HTMLInputElement | null = document.getElementById(
-            "lals-search-input"
-        ) as HTMLInputElement | null;
-        if (!input) throw new Error(`Input lals-search-input not found`);
-        input.value = "";
+        const lalsSearchInput: HTMLInputElement =
+            _getElementOfTypeById<HTMLInputElement>("lals-search-input");
+        lalsSearchInput.value = "";
         getApiPlayers();
     });
 }
 
 (function () {
-    initInput();
+    // setup event listeners
+    handleSearchInput();
     handleNextPage();
     handlePrevPage();
     handleResetSearch();
+    _handleSettingsToggle("settings-icon-id");
+    //
 })();
 
 document.addEventListener("DOMContentLoaded", function () {

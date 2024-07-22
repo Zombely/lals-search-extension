@@ -2,11 +2,14 @@
   <head>
     <title>LALS Search</title>
     <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="settings.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
   </head>
   <body>
-    <div class="main-search-container">
+    <section
+      class="main-search-container"
+      id="search-container">
       <div class="title-wrapper-container">
         <a
           class="lals-logo-container"
@@ -16,7 +19,7 @@
             id="lals-logo-dashboard-id"
             src="https://scontent.fpoz5-1.fna.fbcdn.net/v/t39.30808-6/292349895_454220650039068_7792229182782599018_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=FB7Nw7VtfF0Q7kNvgHxnX3z&_nc_ht=scontent.fpoz5-1.fna&oh=00_AYB5G-i3SXZe6WM_oo2_qEdFCox-1fm_rOgEalc2s68PdQ&oe=669C2534">
         </a>
-        <div class="dashboard-title">Lubońska Amatorska Liga Siatkówki</div>
+        <h2 class="dashboard-title">Lubońska Amatorska Liga Siatkówki</h2>
       </div>
       <div class="input-container">
         <input
@@ -30,17 +33,103 @@
       <div class="lals-paging">
         <button
           id="lals-previous-page"
-          class="lals-paging-button"
+          class="lals-paging-button lals-extension-button"
           disabled>
           <span class="material-icons">chevron_left</span>
         </button>
         <button
           id="lals-next-page"
-          class="lals-paging-button">
+          class="lals-paging-button lals-extension-button">
           <span class="material-icons">chevron_right</span>
         </button>
       </div>
-    </div>
+      <button
+        class="settings-icon"
+        id="settings-icon-id">
+        <span class="material-icons">
+          settings
+        </span>
+      </button>
+    </section>
+    <section
+      class="settings-container hidden"
+      id="settings-container">
+      <button
+        class="settings-go-back-button"
+        id="settings-go-back-button-id">
+        <span class="material-icons">chevron_left</span>
+        <span>Powrót</span>
+      </button>
+      <h2 class="settings-title">Ustawienia:</h2>
+      <form
+        class="settings-inputs-container"
+        id="settings-form">
+        <div class="settings-input-row">
+          <span
+            class="settings-input-label"
+            for="facebook-info-switch">Pokazuj informacje LALS w aplikacji Facebook</span>
+          <label class="switch">
+            <input
+              checked
+              type="checkbox"
+              id="facebook-info-switch"
+              name="facebookPopupIsOn">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <!-- select where to show info -->
+        <div class="settings-input-row">
+          <label
+            class="settings-input-label"
+            for="facebook-info-location">
+            Gdzie pokazywać informacje
+          </label>
+          <select
+            class="settings-select"
+            id="facebook-info-location"
+            name="facebookLocation">
+            <option value="app">Cała aplikacja</option>
+            <option value="groups">Grupy</option>
+          </select>
+        </div>
+        <!-- if groups then allow to enter group links -->
+        <fieldset
+          class="settings-groups-container"
+          id="settings-groups-container-id">
+          <legend class="settings-input-label">Linki do grup:</legend>
+          <div
+            class="settings-group-inputs-container"
+            id="settings-groups-inputs-container-id">
+          </div>
+          <div class="full-center">
+            <button
+              type="button"
+              class="lals-extension-button"
+              id="add-group-button">
+              Dodaj grupę
+            </button>
+          </div>
+        </fieldset>
+        <hr>
+        <button
+          type="submit"
+          class="lals-extension-button"
+          id="settings-apply-button-id">
+          Zapisz ustawienia
+        </button>
+      </form>
+      <div id="app-info-container-id">
+        <div>
+          Kontakt:
+          <a id="app-contact"></a>
+        </div>
+        <div>
+          Wersja:
+          <span id="app-version"></span>
+        </div>
+      </div>
+    </section>
     <script src="popup.js"></script>
+    <script src="setting.js"></script>
   </body>
 </html>

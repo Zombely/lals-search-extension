@@ -1,7 +1,10 @@
 import { LALS_EXTENSION_ENV_CONSTANTS } from "./enviroment";
-import { IPlayer } from "./interfaces";
+import { IConfig, IPlayer } from "./interface";
+
+let currentSettings: IConfig;
 
 function isFacebookDarkMode(): boolean {
+    // i need this to check what type of background should be used in popup
     // somehow this works
     const backgroundColor = window.getComputedStyle(
         document.body
@@ -47,11 +50,7 @@ function createLalsInfoElement(
                 </div>
             </div>
         `;
-    } else if (
-        LALS_EXTENSION_ENV_CONSTANTS.INFO_GROUP_IDS.some((id: number) =>
-            window.location.href.includes(id.toString())
-        )
-    ) {
+    } else {
         infoDivElement.innerHTML = `
             <div class="fb-lals-inner-wrapper">
                 <a class="fb-lals-logo-wrapper" href="https://www.facebook.com/LubonskaAmatorskaLigaSiatkowki">
@@ -64,8 +63,6 @@ function createLalsInfoElement(
                 </div>
             </div>
         `;
-    } else {
-        return;
     }
     fbProfileNode.appendChild(infoDivElement);
 }
@@ -91,7 +88,7 @@ function listenForProfileHover(node: HTMLElement): void {
         node.matches('div[role="dialog"]') ||
         node.querySelector('div[role="dialog"]')
     ) {
-        const nameNode: HTMLElement | null = node.querySelector("h3, h2"); // need to find better way of finding name of user
+        const nameNode: HTMLElement | null = node.querySelector("h3, h2"); // need to find better way of finding name of user, maybe use fb id somehow
         if (!nameNode) return;
         fetchPlayerData(nameNode.innerText).then((data: IPlayer | null) => {
             createLalsInfoElement(node, data);
@@ -104,10 +101,61 @@ const observer = new MutationObserver((mutationsList: MutationRecord[]) => {
         if (mutation.type !== "childList") return;
         mutation.addedNodes.forEach((node: Node) => {
             if (node.nodeType !== 1) return;
+
+            if (
+                currentSettings.facebookLocation === "groups" &&
+                currentSettings.facebookGroupUrls.length > 0 &&
+                !currentSettings.facebookGroupUrls.includes(
+                    window.location.href
+                )
+            )
+                return;
+
             listenForProfileHover(node as HTMLElement);
         });
     }
 });
 
-observer.observe(document.body, { childList: true, subtree: true }); // init
+// listen for changes in settings
+chrome.runtime.onMessage.addListener((message) => {
+    if (
+        !message.hasOwnProperty("action") &&
+        message.action !== "config_updated"
+    )
+        return;
+    chrome.storage.local.get(
+        [LALS_EXTENSION_ENV_CONSTANTS.CHROME_STORAGE_SETTINGS_KEY],
+        (result) => {
+            currentSettings =
+                result[
+                    LALS_EXTENSION_ENV_CONSTANTS.CHROME_STORAGE_SETTINGS_KEY
+                ] || LALS_EXTENSION_ENV_CONSTANTS.DEFAULT_SETTINGS;
+            if (currentSettings.facebookPopupIsOn) {
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true,
+                });
+            } else {
+                observer.disconnect();
+            }
+        }
+    );
+});
+
+// start observing when config is available
+chrome.storage.local.get(
+    [LALS_EXTENSION_ENV_CONSTANTS.CHROME_STORAGE_SETTINGS_KEY],
+    (result) => {
+        currentSettings =
+            result[LALS_EXTENSION_ENV_CONSTANTS.CHROME_STORAGE_SETTINGS_KEY] ||
+            LALS_EXTENSION_ENV_CONSTANTS.DEFAULT_SETTINGS;
+        if (currentSettings.facebookPopupIsOn) {
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+            });
+        }
+    }
+);
+
 window.addEventListener("beforeunload", () => observer.disconnect()); // cleanup

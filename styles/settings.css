@@ -1,0 +1,252 @@
+/* switch */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 23px;
+}
+  
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+}
+
+/* END  */
+
+.settings-input-row{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.settings-input-label{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+
+.settings-container{
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    color: white;
+}
+
+.settings-go-back-button{
+    padding: 0 !important;
+    color: gray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: none !important;
+    cursor: pointer;
+    appearance: none;
+    border: none;
+    background: none;
+}
+
+.settings-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.settings-inputs-container{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.settings-select{
+    padding: 4px;
+    border-radius: 8px;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+.settings-select:focus{
+    border: none;
+    outline: none;
+}
+.settings-select:disabled{
+    color: gray;
+}
+
+.settings-groups-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+.settings-groups-container > legend{
+    padding: 0;
+}
+
+.settings-group-inputs-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.group-input-wrapper{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 99%;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+.group-input-wrapper>input{
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    height: 23px;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 0 30px 0 4px;
+}
+.group-input-wrapper>input:focus{
+    outline: none;
+}
+.group-input-wrapper>span{
+    position: absolute;
+    right: 10px;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.lals-extension-button {
+    padding: 4px 12px;
+    width: fit-content;
+    border-radius: 12px;
+    background-color: transparent;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.lals-extension-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.lals-extension-button:active {
+    transform: scale(1.1); 
+    background-color: #f0f0f0; 
+    color: #333; 
+}
+
+.lals-extension-button:disabled {
+    background-color: gray;
+    color: white;
+    border: 2px solid gray;
+    cursor: not-allowed;
+}
+.lals-extension-button:disabled:active {
+    transform: none;
+}
+
+
+.full-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr{
+    border-width: 0.2px;
+    width: 100%;
+}
+
+#settings-apply-button-id{
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+/* version info */
+
+#app-info-container-id{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    color: gray;
+    font-size: 10;
+}
+
+#app-info-container-id>div{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+#app-info-container-id>div>span,a{
+    font-weight: 600;
+    text-decoration: none;
+    color: gray;
+}
