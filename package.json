@@ -14,6 +14,7 @@
         "url": "https://github.com/Zombely/lals-search-extension"
     },
     "devDependencies": {
+        "@types/chrome": "^0.0.268",
         "compression-webpack-plugin": "^11.1.0",
         "copy-webpack-plugin": "^12.0.2",
         "terser-webpack-plugin": "^5.3.10",

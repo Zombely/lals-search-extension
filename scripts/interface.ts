@@ -16,8 +16,20 @@ export interface IPlayer {
 
 export interface ILalsEnvs {
     API_BASE_URL: string;
-    INFO_GROUP_IDS: number[];
     LALS_LOGO_URL: string;
     POSITION_TRANS_MAP: { [key in string]: string };
     CACHE_NAME: string;
+    CHROME_STORAGE_SETTINGS_KEY: string;
+    DEFAULT_SETTINGS: IConfig;
+}
+
+export enum FacebookLocation {
+    APP = "app",
+    GROUP = "groups",
+}
+
+export interface IConfig {
+    facebookPopupIsOn: boolean;
+    facebookLocation: FacebookLocation;
+    facebookGroupUrls: string[];
 }
