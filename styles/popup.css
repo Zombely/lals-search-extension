@@ -79,6 +79,13 @@ body{
 }
 /* SCROLLBAR END */
 
+.lals-no-results{
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+
+}
 
 .lals-user-container{
     display: flex;

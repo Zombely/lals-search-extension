@@ -96,11 +96,18 @@ function populatePlayers(playersData: IPlayer[]): void {
         "player-results-container"
     );
     container.innerHTML = "";
-    playersData.forEach((player: IPlayer) => {
-        const createdPlayerElement: HTMLDivElement =
-            createPlayerElement(player);
-        container.appendChild(createdPlayerElement);
-    });
+    if (playersData.length === 0) {
+        const messageElement: HTMLDivElement = document.createElement("div");
+        messageElement.textContent = "Brak wyników :(";
+        messageElement.className = "lals-no-results";
+        container.appendChild(messageElement);
+    } else {
+        playersData.forEach((player: IPlayer) => {
+            const createdPlayerElement: HTMLDivElement =
+                createPlayerElement(player);
+            container.appendChild(createdPlayerElement);
+        });
+    }
 }
 
 function handleSearchInput(): void {
