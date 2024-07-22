@@ -16,7 +16,6 @@ export interface IPlayer {
 
 export interface ILalsEnvs {
     API_BASE_URL: string;
-    INFO_GROUP_IDS: number[];
     LALS_LOGO_URL: string;
     POSITION_TRANS_MAP: { [key in string]: string };
     CACHE_NAME: string;
