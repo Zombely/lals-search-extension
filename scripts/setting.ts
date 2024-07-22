@@ -162,6 +162,10 @@ function handleFacebookSwitch(): void {
                 (input: HTMLInputElement) =>
                     (input.disabled = !fbSwitch.checked)
             );
+
+        const groupAddButton: HTMLButtonElement =
+            _getElementOfTypeById<HTMLButtonElement>("add-group-button");
+        groupAddButton.disabled = !fbSwitch.checked;
     });
 }
 
