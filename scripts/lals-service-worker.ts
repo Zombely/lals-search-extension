@@ -2,11 +2,11 @@ import { LALS_EXTENSION_ENV_CONSTANTS } from "./enviroment";
 
 const serviceWorker = self as unknown as ServiceWorkerGlobalScope;
 
-serviceWorker.addEventListener("install", (event: ExtendableEvent) => {
+export function onServiceWorkerInstall(event: ExtendableEvent): void {
     event.waitUntil(caches.open(LALS_EXTENSION_ENV_CONSTANTS.CACHE_NAME));
-});
+}
 
-serviceWorker.addEventListener("fetch", async (event: FetchEvent) => {
+export function onServiceWorkerFetch(event: FetchEvent): void {
     if (event.request.url.includes(LALS_EXTENSION_ENV_CONSTANTS.API_BASE_URL)) {
         event.respondWith(
             caches
@@ -32,4 +32,9 @@ serviceWorker.addEventListener("fetch", async (event: FetchEvent) => {
                 })
         );
     }
-});
+    return;
+}
+
+serviceWorker.addEventListener("install", onServiceWorkerInstall);
+
+serviceWorker.addEventListener("fetch", onServiceWorkerFetch);
