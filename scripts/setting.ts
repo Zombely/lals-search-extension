@@ -59,6 +59,10 @@ function initSettings(): void {
                 );
                 currentGroupId++;
             } while (currentGroupId < urls.length);
+
+            const setttingsButton: HTMLButtonElement =
+                _getElementOfTypeById<HTMLButtonElement>("settings-icon-id");
+            setttingsButton.classList.toggle("hidden");
         }
     );
 }
