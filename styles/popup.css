@@ -8,7 +8,20 @@ body{
     width: max-content;
     width: 380px;
     height: fit-content;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    font-size: 75%;
 }
+
+@media (min-width: 1000px) {
+    body {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
 
 .hidden {
     display: none !important;
