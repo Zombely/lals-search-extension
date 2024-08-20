@@ -171,4 +171,10 @@ function handleResetSearch(): void {
 
 document.addEventListener("DOMContentLoaded", function () {
     getApiPlayers();
+
+    // set up lals logo
+    let lalsLogoImg: HTMLImageElement = _getElementOfTypeById<HTMLImageElement>(
+        "lals-logo-dashboard-id"
+    );
+    lalsLogoImg.src = LALS_EXTENSION_ENV_CONSTANTS.LALS_LOGO_URL;
 });
